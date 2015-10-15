@@ -26,17 +26,20 @@ public class ConjuntoDeEnteros {
     }
     
     public boolean añade(int elemento){
-        if (this.cardinal() ==10){
+        if ((this.cardinal() == 10)||(this.pertenece(elemento))){
             return false;
-        }
-        for (int i = 0; i < this.cardinal(); i++) {
-            if (this.vectorElementos[i]==elemento){
-                return false;
-            }
         }
         this.vectorElementos[this.cardinal()]=elemento;
         return true;
     }
     
+    public boolean pertenece(int elemento){
+        for (int i = 0; i < this.cardinal(); i++) {
+            if (this.vectorElementos[i]==elemento){
+                return true;
+            }
+        }
+        return false;
+    }
     
 }
