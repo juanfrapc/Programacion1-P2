@@ -22,7 +22,21 @@ public class ConjuntoDeEnteros {
     }
     
     public boolean estáVacio(){
-        return (this.vectorElementos.length ==0)?true:false;
+        return (this.vectorElementos.length ==0);
     }
+    
+    public boolean añade(int elemento){
+        if (this.cardinal() ==10){
+            return false;
+        }
+        for (int i = 0; i < this.cardinal(); i++) {
+            if (this.vectorElementos[i]==elemento){
+                return false;
+            }
+        }
+        this.vectorElementos[this.cardinal()]=elemento;
+        return true;
+    }
+    
     
 }
