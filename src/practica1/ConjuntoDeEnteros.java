@@ -21,10 +21,15 @@ public class ConjuntoDeEnteros {
         }
     }
     
-    private ConjuntoDeEnteros(ConjuntoDeEnteros conjunto){
-        this.elementos=(ArrayList)conjunto.elementos.clone();
+     public ConjuntoDeEnteros(ArrayList<Integer> elementos) {
+        this.elementos = elementos;
     }
     
+    @Override
+    public boolean equals(Object conjunto){
+        return this.elementos.equals(conjunto);
+    } 
+     
     public int cardinal(){
         return this.elementos.size();
     }
@@ -46,15 +51,14 @@ public class ConjuntoDeEnteros {
     }
     
     public ConjuntoDeEnteros unión(ConjuntoDeEnteros conjunto){
-        ConjuntoDeEnteros conjuntoUnion = new ConjuntoDeEnteros(this);
+        ConjuntoDeEnteros conjuntoUnion = new ConjuntoDeEnteros(this.elementos);
         for (int i = 0; (i < conjunto.cardinal()) && (conjuntoUnion.cardinal()<10) ; i++) {
             if (!this.pertenece(conjunto.elementos.get(i))){
                 conjuntoUnion.elementos.add(conjunto.elementos.get(i));
             }
         }
         return conjuntoUnion;
-    }
-    
+    } 
     
     
 }
