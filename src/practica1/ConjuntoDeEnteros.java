@@ -1,60 +1,58 @@
 package practica1;
 
+import java.util.ArrayList;
+
 public class ConjuntoDeEnteros {
 
-    private int[] vectorElementos;
+    private ArrayList<Integer> elementos;
 
     public ConjuntoDeEnteros() {
-        this.vectorElementos = new int[0];
+        this.elementos = new ArrayList<>();
     }
 
-    public ConjuntoDeEnteros(int[] vectorElementos) {
-        if (vectorElementos.length < 11){
-            this.vectorElementos = vectorElementos.clone();
-        }else{
-            int [] result = new int[10];
-            System.arraycopy(vectorElementos, 0, result, 0, result.length);
+    public ConjuntoDeEnteros(int[] vector) {
+        this();
+        int k=0;
+        for (int i = 0; (i < vector.length)&&(k<10); i++) {
+            if (!elementos.contains(vector[i])) {
+                elementos.add(vector[i]);
+                k++;
+            }
         }
+    }
+    
+    private ConjuntoDeEnteros(ConjuntoDeEnteros conjunto){
+        this.elementos=(ArrayList)conjunto.elementos.clone();
     }
     
     public int cardinal(){
-        return this.vectorElementos.length;
+        return this.elementos.size();
     }
     
     public boolean estáVacio(){
-        return (this.vectorElementos.length ==0);
+        return (this.elementos.isEmpty());
     }
     
     public boolean pertenece(int elemento){
-        for (int i = 0; i < this.cardinal(); i++) {
-            if (this.vectorElementos[i]==elemento){
-                return true;
-            }
-        }
-        return false;
+        return this.elementos.contains(elemento);
     }
     
     public boolean añade(int elemento){
         if ((this.cardinal() == 10)||(this.pertenece(elemento))){
             return false;
         }
-        this.vectorElementos[this.cardinal()]=elemento;
+        this.elementos.add(elemento);
         return true;
     }
     
     public ConjuntoDeEnteros unión(ConjuntoDeEnteros conjunto){
-        int[] vectorResultadoParcial = new int[10];
-        System.arraycopy(this.vectorElementos, 0, vectorResultadoParcial, 0, this.cardinal());
-        int k=0;
-        for (int i = 0; i < 10-this.cardinal(); i++) {
-            if (!this.pertenece(conjunto.vectorElementos[i])){
-                vectorResultadoParcial[k+this.cardinal()]=conjunto.vectorElementos[i];
-                k++;
+        ConjuntoDeEnteros conjuntoUnion = new ConjuntoDeEnteros(this);
+        for (int i = 0; (i < conjunto.cardinal()) && (conjuntoUnion.cardinal()<10) ; i++) {
+            if (!this.pertenece(conjunto.elementos.get(i))){
+                conjuntoUnion.elementos.add(conjunto.elementos.get(i));
             }
         }
-        int[] vectorResultado = new int[this.cardinal()+k];
-        System.arraycopy(vectorResultadoParcial, 0, vectorResultado, 0, this.cardinal()+k);
-        return new ConjuntoDeEnteros(vectorResultado);
+        return conjuntoUnion;
     }
     
     
