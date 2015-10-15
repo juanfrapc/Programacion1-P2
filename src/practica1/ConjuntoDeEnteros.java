@@ -25,14 +25,6 @@ public class ConjuntoDeEnteros {
         return (this.vectorElementos.length ==0);
     }
     
-    public boolean añade(int elemento){
-        if ((this.cardinal() == 10)||(this.pertenece(elemento))){
-            return false;
-        }
-        this.vectorElementos[this.cardinal()]=elemento;
-        return true;
-    }
-    
     public boolean pertenece(int elemento){
         for (int i = 0; i < this.cardinal(); i++) {
             if (this.vectorElementos[i]==elemento){
@@ -41,5 +33,30 @@ public class ConjuntoDeEnteros {
         }
         return false;
     }
+    
+    public boolean añade(int elemento){
+        if ((this.cardinal() == 10)||(this.pertenece(elemento))){
+            return false;
+        }
+        this.vectorElementos[this.cardinal()]=elemento;
+        return true;
+    }
+    
+    public ConjuntoDeEnteros unión(ConjuntoDeEnteros conjunto){
+        int[] vectorResultadoParcial = new int[10];
+        System.arraycopy(this.vectorElementos, 0, vectorResultadoParcial, 0, this.cardinal());
+        int k=0;
+        for (int i = 0; i < 10-this.cardinal(); i++) {
+            if (!this.pertenece(conjunto.vectorElementos[i])){
+                vectorResultadoParcial[k+this.cardinal()]=conjunto.vectorElementos[i];
+                k++;
+            }
+        }
+        int[] vectorResultado = new int[this.cardinal()+k];
+        System.arraycopy(vectorResultadoParcial, 0, vectorResultado, 0, this.cardinal()+k);
+        return new ConjuntoDeEnteros(vectorResultado);
+    }
+    
+    
     
 }
