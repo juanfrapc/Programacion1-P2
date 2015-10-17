@@ -95,7 +95,7 @@ public class ConjuntoDeEnteros {
     public ConjuntoDeEnteros intersección(ConjuntoDeEnteros conjunto){
         int[] vectorResultadoParcial = new int[10];
         int k=0;
-        for (int i = 0; (i < conjunto.cardinal()); i++) {
+        for (int i = 0; i < conjunto.cardinal(); i++) {
             if (this.pertenece(conjunto.vectorElementos[i])){
                 vectorResultadoParcial[k]=conjunto.vectorElementos[i];
                 k++;
@@ -109,7 +109,7 @@ public class ConjuntoDeEnteros {
     public ConjuntoDeEnteros diferencia(ConjuntoDeEnteros conjunto){
         int[] vectorResultadoParcial = new int[10];
         int k=0;
-        for (int i = 0; (i < this.cardinal()); i++) {
+        for (int i = 0; i < this.cardinal(); i++) {
             if (!conjunto.pertenece(this.vectorElementos[i])){
                 vectorResultadoParcial[k]=this.vectorElementos[i];
                 k++;
@@ -119,4 +119,19 @@ public class ConjuntoDeEnteros {
         System.arraycopy(vectorResultadoParcial, 0, vectorResultado, 0, k);
         return new ConjuntoDeEnteros(vectorResultado);
     }
+
+    public boolean contenido(ConjuntoDeEnteros conjunto){
+        for (int i = 0; i < conjunto.cardinal(); i++) {
+            if (!this.pertenece(conjunto.vectorElementos[i])){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public int[] elementos(ConjuntoDeEnteros conjunto){
+        return conjunto.vectorElementos;
+    }
+    
+    
 }
