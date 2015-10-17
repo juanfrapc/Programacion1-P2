@@ -88,10 +88,35 @@ public class ConjuntoDeEnteros {
             }
         }
         int[] vectorResultado = new int[k];
-        System.arraycopy(vectorResultadoParcial, 0, vectorResultado, 0, +k);
+        System.arraycopy(vectorResultadoParcial, 0, vectorResultado, 0, k);
         return new ConjuntoDeEnteros(vectorResultado);
     }
     
+    public ConjuntoDeEnteros intersección(ConjuntoDeEnteros conjunto){
+        int[] vectorResultadoParcial = new int[10];
+        int k=0;
+        for (int i = 0; (i < conjunto.cardinal()); i++) {
+            if (this.pertenece(conjunto.vectorElementos[i])){
+                vectorResultadoParcial[k]=conjunto.vectorElementos[i];
+                k++;
+            }
+        }
+        int[] vectorResultado = new int[k];
+        System.arraycopy(vectorResultadoParcial, 0, vectorResultado, 0, k);
+        return new ConjuntoDeEnteros(vectorResultado);
+    }
     
-    
+    public ConjuntoDeEnteros diferencia(ConjuntoDeEnteros conjunto){
+        int[] vectorResultadoParcial = new int[10];
+        int k=0;
+        for (int i = 0; (i < this.cardinal()); i++) {
+            if (!conjunto.pertenece(this.vectorElementos[i])){
+                vectorResultadoParcial[k]=this.vectorElementos[i];
+                k++;
+            }
+        }
+        int[] vectorResultado = new int[k];
+        System.arraycopy(vectorResultadoParcial, 0, vectorResultado, 0, k);
+        return new ConjuntoDeEnteros(vectorResultado);
+    }
 }
