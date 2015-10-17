@@ -13,13 +13,13 @@ public class ConjuntoDeEnteros {
         int k=0;
         for (int i = 0; (i < vectorElementos.length)&&(k<10); i++) {
             int j;
-            for (j = i+1; j < vectorElementos.length; j++) {
+            for (j = i; j < vectorElementos.length; j++) {
                 if ((vectorElementos[i]==vectorElementos[j])&&(i!=j)){
                     break;
                 }
             }
             if (j==vectorElementos.length) {
-                result[k]=vectorElementos.length;
+                result[k]=vectorElementos[i];
                 k++;
             }
         }
@@ -72,7 +72,7 @@ public class ConjuntoDeEnteros {
         }
         int[] result= new int[this.vectorElementos.length +1];
         System.arraycopy(this.vectorElementos, 0, result, 0, this.vectorElementos.length);
-        result[this.vectorElementos.length +1] = elemento;
+        result[this.vectorElementos.length] = elemento;
         this.vectorElementos=result;
         return true;
     }
