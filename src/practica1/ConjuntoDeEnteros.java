@@ -9,29 +9,29 @@ public class ConjuntoDeEnteros {
     }
 
     public ConjuntoDeEnteros(int[] vectorElementos) {
-        if (vectorElementos.length ==0){
-            this.vectorElementos = new int[0];
-        }else{
-            int [] result = new int[10];
-            int k=0;
-            for (int i = 0; (i < vectorElementos.length)&&(k<10); i++) {
-                int j;
-                for (j = i+1; j < vectorElementos.length; j++) {
-                    if ((vectorElementos[i]==vectorElementos[j])&&(i!=j)){
-                        break;
-                    }
-                }
-                if (j==vectorElementos.length) {
-                    result[k]=vectorElementos.length;
-                    k++;
+        int [] result = new int[10];
+        int k=0;
+        for (int i = 0; (i < vectorElementos.length)&&(k<10); i++) {
+            int j;
+            for (j = i+1; j < vectorElementos.length; j++) {
+                if ((vectorElementos[i]==vectorElementos[j])&&(i!=j)){
+                    break;
                 }
             }
-            System.arraycopy(this.vectorElementos, 0, result, 0, k);
+            if (j==vectorElementos.length) {
+                result[k]=vectorElementos.length;
+                k++;
+            }
         }
+        this.vectorElementos= new int[k];
+        System.arraycopy(result, 0, this.vectorElementos, 0, k);
     }
     
     @Override
     public boolean equals(Object conjunto){
+        if(!(conjunto instanceof ConjuntoDeEnteros)){
+            return false;
+        }
         int j;
         if (this.cardinal()!= ((ConjuntoDeEnteros) conjunto).cardinal() ){
             return false;
@@ -53,7 +53,7 @@ public class ConjuntoDeEnteros {
         return this.vectorElementos.length;
     }
     
-    public boolean estáVacio(){
+    public boolean estáVacío(){
         return (this.vectorElementos.length ==0);
     }
     
@@ -70,22 +70,25 @@ public class ConjuntoDeEnteros {
         if ((this.cardinal() == 10)||(this.pertenece(elemento))){
             return false;
         }
-        this.vectorElementos[this.cardinal()]=elemento;
+        int[] result= new int[this.vectorElementos.length +1];
+        System.arraycopy(this.vectorElementos, 0, result, 0, this.vectorElementos.length);
+        result[this.vectorElementos.length +1] = elemento;
+        this.vectorElementos=result;
         return true;
     }
     
     public ConjuntoDeEnteros unión(ConjuntoDeEnteros conjunto){
         int[] vectorResultadoParcial = new int[10];
         System.arraycopy(this.vectorElementos, 0, vectorResultadoParcial, 0, this.cardinal());
-        int k=0;
-        for (int i = 0; i < 10-this.cardinal(); i++) {
+        int k=this.cardinal();
+        for (int i = 0; (i < conjunto.cardinal()) && (k < 10); i++) {
             if (!this.pertenece(conjunto.vectorElementos[i])){
-                vectorResultadoParcial[k+this.cardinal()]=conjunto.vectorElementos[i];
+                vectorResultadoParcial[k]=conjunto.vectorElementos[i];
                 k++;
             }
         }
-        int[] vectorResultado = new int[this.cardinal()+k];
-        System.arraycopy(vectorResultadoParcial, 0, vectorResultado, 0, this.cardinal()+k);
+        int[] vectorResultado = new int[k];
+        System.arraycopy(vectorResultadoParcial, 0, vectorResultado, 0, +k);
         return new ConjuntoDeEnteros(vectorResultado);
     }
     
