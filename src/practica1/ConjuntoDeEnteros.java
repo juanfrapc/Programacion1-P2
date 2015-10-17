@@ -9,11 +9,24 @@ public class ConjuntoDeEnteros {
     }
 
     public ConjuntoDeEnteros(int[] vectorElementos) {
-        if (vectorElementos.length < 11){
-            this.vectorElementos = vectorElementos.clone();
+        if (vectorElementos.length ==0){
+            this.vectorElementos = new int[0];
         }else{
             int [] result = new int[10];
-            System.arraycopy(vectorElementos, 0, result, 0, result.length);
+            int k=0;
+            for (int i = 0; (i < vectorElementos.length)&&(k<10); i++) {
+                int j;
+                for (j = i+1; j < vectorElementos.length; j++) {
+                    if ((vectorElementos[i]==vectorElementos[j])&&(i!=j)){
+                        break;
+                    }
+                }
+                if (j==vectorElementos.length) {
+                    result[k]=vectorElementos.length;
+                    k++;
+                }
+            }
+            System.arraycopy(this.vectorElementos, 0, result, 0, k);
         }
     }
     
