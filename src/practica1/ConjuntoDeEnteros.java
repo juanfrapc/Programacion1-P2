@@ -30,6 +30,25 @@ public class ConjuntoDeEnteros {
         }
     }
     
+    @Override
+    public boolean equals(Object conjunto){
+        int j;
+        if (this.cardinal()!= ((ConjuntoDeEnteros) conjunto).cardinal() ){
+            return false;
+        }        
+        for (int i = 0; i< this.cardinal(); i++){
+            for (j = 0; j<this.cardinal();j++){
+                if (this.vectorElementos[i] == ((ConjuntoDeEnteros) conjunto).vectorElementos[j]){
+                    break;
+                }
+            }
+            if (j == this.cardinal()){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public int cardinal(){
         return this.vectorElementos.length;
     }
